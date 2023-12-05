@@ -5,34 +5,54 @@ import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import basicSchemaRegister from "../../schemas/basicSchemas";
 import supabase from "../../config/supabaseConfig";
+import bcrypt from "bcryptjs"; // Import bcryptjs
 
 function Register() {
   const onSubmit = async (values) => {
     console.log(values);
 
-    //Insert user in supabse
-    try {
-      const { error } = await supabase.from("quizzAppUsers").insert({
-        id: uuidv4().slice(0, 4).toUpperCase(),
-        firstName: values.firstName,
-        secondName: values.secondName,
-        email: values.email,
-        password: values.password,
-        coPassword: values.coPassword,
-      });
+    const saltRounds = 10; // number of rounds used in the bcrypt algorithm to hash passwords
 
-      if (error) {
-        // Handle the error, you can log it or throw it if needed
-        console.error("Error inserting data:", error);
-        // Optionally throw the error to propagate it further
-        throw error;
+    const hashedPassword = await bcrypt.hash(values.password, saltRounds);
+    const hashedCoPassword = await bcrypt.hash(values.coPassword, saltRounds);
+
+    // here initial password is compared with 'the one from has to check matching'
+    const matchHashedPassword = await bcrypt.compare(
+      values.password,
+      hashedPassword
+    );
+
+    // here initial password is compared with 'the one from has to check matching'
+    const matchHashedCoPassword = await bcrypt.compare(
+      values.coPassword,
+      hashedCoPassword
+    );
+
+    if (matchHashedPassword && matchHashedCoPassword) {
+      //Insert user in supabse
+      try {
+        const { error } = await supabase.from("quizzAppUsers").insert({
+          id: uuidv4().slice(0, 4).toUpperCase(),
+          firstName: values.firstName,
+          secondName: values.secondName,
+          email: values.email,
+          password: hashedPassword,
+          coPassword: hashedCoPassword,
+        });
+
+        if (error) {
+          // Handle the error, you can log it or throw it if needed
+          console.error("Error inserting data:", error);
+          // Optionally throw the error to propagate it further
+          throw error;
+        }
+
+        // The data was inserted successfully
+        console.log("Data inserted successfully");
+      } catch (error) {
+        // Handle the error here, you can log it or perform other actions
+        console.error("Error in try-catch block:", error);
       }
-
-      // The data was inserted successfully
-      console.log("Data inserted successfully");
-    } catch (error) {
-      // Handle the error here, you can log it or perform other actions
-      console.error("Error in try-catch block:", error);
     }
   };
   const formik = useFormik({
