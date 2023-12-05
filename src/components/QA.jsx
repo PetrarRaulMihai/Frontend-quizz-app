@@ -1,14 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useStore from "../stores/myZusand";
+import { useNavigate } from "react-router-dom";
 
 function QA() {
-  const [array, setArray] = useState(["answ-1", "answ-2", "answ-3", "answ4-"]);
+  const navigate = useNavigate();
   const { subjectObject } = useStore();
   const [questionIndex, setQuestionIndex] = useState(0);
 
+  const correctAnwers = [];
+  const wrongAnwers = [];
+
+  //array which stores ALL users answers
+  const [usersChoices, setUsersChoices] = useState([]); //10 items
+  //this state is storing users choice temporary
+  const [userAnswer, setUserAnswer] = useState();
+
+  const numberOfQuestions = subjectObject.questions.length;
+
+  //A paragraph must be inserted if no answer is selected
+
   const handleSubmitAnswer = () => {
-    setQuestionIndex((prev) => prev + 1);
+    if (usersChoices.length === numberOfQuestions - 1) {
+      console.log("you reached");
+      navigate("/register");
+    }
+
+    if (userAnswer) {
+      setQuestionIndex((prev) => prev + 1);
+      setUsersChoices([...usersChoices, userAnswer]);
+    } else {
+      console.log("pleaase choose a value");
+    }
+
+    setUserAnswer("");
   };
+
+  const usersAnswer = (answer) => {
+    setUserAnswer(answer);
+  };
+
+  useEffect(() => {
+    console.log(subjectObject);
+    console.log(numberOfQuestions);
+    console.log(userAnswer);
+    console.log(usersChoices);
+  }, [userAnswer, usersChoices]);
+
+  // for (let i = 0; i < arr1.length; i++) {
+  //   if (arr1[i] === arr2[j]) {
+  //   }
+  // }
+
   return (
     <article className="px-5 flex flex-col gap-10">
       {/* Questions section */}
@@ -39,7 +81,10 @@ function QA() {
       <section className="flex flex-col w-full items-center gap-3 py-2 rounded-lg">
         {subjectObject.questions[questionIndex].options.map((option, index) => {
           return (
-            <div className="flex gap-4 px-3 bg-[#485972] py-2 items-center rounded-xl w-full">
+            <div
+              className="flex gap-4 px-3 bg-[#485972] py-2 items-center rounded-xl w-full"
+              onClick={() => usersAnswer(option)}
+            >
               <div className=" bg-[#f3f7fa] rounded-md">
                 <p className="text-[#6f7784] font-bold text-lg px-3 py-1">{`${
                   index === 0

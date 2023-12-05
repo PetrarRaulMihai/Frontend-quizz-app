@@ -4,10 +4,13 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useFormik } from "formik";
 import supabase from "../../config/supabaseConfig";
 import { useState } from "react";
-import bcrypt from "bcryptjs";
+import { useNavigate } from "react-router-dom";
+import bcrypt, { hash } from "bcryptjs";
 import basicSchemaLogin from "../../schemas/basicSchemaLogin";
 
 function Login() {
+  const navigate = useNavigate();
+
   const onSubmit = async (values) => {
     // Fetch users from supabase
     const { data, error } = await supabase.from("quizzAppUsers").select();
@@ -27,6 +30,7 @@ function Login() {
       // testing conditions
       if (passwordMatch) {
         console.log("PASSWORD MATCH !!");
+        navigate("/home");
       } else {
         console.error("PASSWORD DOESN'T MATCH !!");
       }
