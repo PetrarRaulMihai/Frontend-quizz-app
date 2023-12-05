@@ -4,21 +4,34 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useFormik } from "formik";
 import supabase from "../../config/supabaseConfig";
 import { useState } from "react";
+import bcrypt from "bcryptjs";
+import basicSchemaLogin from "../../schemas/basicSchemaLogin";
 
 function Login() {
   const onSubmit = async (values) => {
     // Fetch users from supabase
     const { data, error } = await supabase.from("quizzAppUsers").select();
-    console.log(data);
-    for (let i = 0; i < data.length; i++) {
-      if (
-        values.email === data[i].email &&
-        values.password === data[i].password
-      ) {
-        console.log("Credentials match");
+
+    // check in database for a object which has email matching with user typed email
+    // if yes return entire object if not returns undefined
+    const emailMatch = data.find((user) => user.email === values.email);
+
+    if (emailMatch !== undefined) {
+      // check if password for that particular user matches with the user typed one
+      // return boolean
+      const passwordMatch = await bcrypt.compare(
+        values.password,
+        emailMatch.password
+      );
+
+      // testing conditions
+      if (passwordMatch) {
+        console.log("PASSWORD MATCH !!");
       } else {
-        console.log("Credentials doesn't match");
+        console.error("PASSWORD DOESN'T MATCH !!");
       }
+    } else {
+      console.error("EMAIL DOESN'T EXISTS");
     }
   };
   const formik = useFormik({
@@ -26,6 +39,7 @@ function Login() {
       email: "",
       password: "",
     },
+    validationSchema: basicSchemaLogin,
     onSubmit,
   });
 
@@ -52,7 +66,7 @@ function Login() {
             name="email"
             placeholder="Type your email"
           ></input>
-          <p className="text-red-400"></p>
+          <p className="text-red-400">{formik.errors.email}</p>
         </div>
 
         {/* ------------------------------------------ PASSWORD ---------------------------------------- */}
@@ -69,7 +83,7 @@ function Login() {
             name="password"
             placeholder="Choose a password"
           ></input>
-          <p className="text-red-400"></p>
+          <p className="text-red-400">{formik.errors.password}</p>
         </div>
         {/* ------------------------------------------ SUBMIT BUTTON ------------------------------------ */}
 

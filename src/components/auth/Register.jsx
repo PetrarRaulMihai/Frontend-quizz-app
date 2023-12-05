@@ -3,26 +3,25 @@ import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-import basicSchemaRegister from "../../schemas/basicSchemas";
+import basicSchemaRegister from "../../schemas/basicSchemaRegister";
 import supabase from "../../config/supabaseConfig";
-import bcrypt from "bcryptjs"; // Import bcryptjs
+import bcrypt from "bcryptjs";
 
 function Register() {
   const onSubmit = async (values) => {
-    console.log(values);
-
-    const saltRounds = 10; // number of rounds used in the bcrypt algorithm to hash passwords
+    // number of rounds used in the bcrypt algorithm to hash passwords
+    const saltRounds = 10;
 
     const hashedPassword = await bcrypt.hash(values.password, saltRounds);
     const hashedCoPassword = await bcrypt.hash(values.coPassword, saltRounds);
 
-    // here initial password is compared with 'the one from has to check matching'
+    // here initial password is compared with 'the hashed one to be sure if matches'
     const matchHashedPassword = await bcrypt.compare(
       values.password,
       hashedPassword
     );
 
-    // here initial password is compared with 'the one from has to check matching'
+    // here initial password is compared with 'the hashed one to be sure if matches'
     const matchHashedCoPassword = await bcrypt.compare(
       values.coPassword,
       hashedCoPassword
