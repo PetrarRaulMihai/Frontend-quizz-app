@@ -1,13 +1,14 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import basicSchemaRegister from "../../schemas/basicSchemaRegister";
 import supabase from "../../config/supabaseConfig";
 import bcrypt from "bcryptjs";
 
 function Register() {
+  const navigate = useNavigate();
   const onSubmit = async (values) => {
     // number of rounds used in the bcrypt algorithm to hash passwords
     const saltRounds = 10;
@@ -38,6 +39,7 @@ function Register() {
           password: hashedPassword,
           coPassword: hashedCoPassword,
         });
+        navigate("/login");
 
         if (error) {
           // Handle the error, you can log it or throw it if needed

@@ -7,7 +7,9 @@ function Header() {
     <header className="flex flex-col gap-6 pt-2 px-5 mb-12">
       {/* User profile name firts level*/}
       <div className="flex justify-end">
-        <p className="italic text-[#91a2b7]">Welcome Raul Petrar</p>
+        <p className="italic text-[#91a2b7]">
+          Welcome {localStorage.getItem("name")}
+        </p>
       </div>
       {/* Header second level */}
       <div className="flex justify-end">

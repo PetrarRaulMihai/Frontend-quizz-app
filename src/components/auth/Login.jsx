@@ -20,6 +20,9 @@ function Login() {
     const emailMatch = data.find((user) => user.email === values.email);
 
     if (emailMatch !== undefined) {
+      const nameToLocalStorage =
+        emailMatch.firstName + " " + emailMatch.secondName;
+
       // check if password for that particular user matches with the user typed one
       // return boolean
       const passwordMatch = await bcrypt.compare(
@@ -27,10 +30,13 @@ function Login() {
         emailMatch.password
       );
 
-      // testing conditions
+      // further if credentials work
       if (passwordMatch) {
         console.log("PASSWORD MATCH !!");
         navigate("/home");
+
+        //set in local storage for user name display in app
+        localStorage.setItem("name", nameToLocalStorage);
       } else {
         console.error("PASSWORD DOESN'T MATCH !!");
       }
@@ -91,7 +97,10 @@ function Login() {
         </div>
         {/* ------------------------------------------ SUBMIT BUTTON ------------------------------------ */}
 
-        <button className="text-lg font-bold text-gray-200 bg-slate-600 flex w-1/3 m-auto justify-center py-1 px-2 rounded-lg border-2 active:bg-opacity-0 transition">
+        <button
+          type="submit"
+          className="text-lg font-bold text-gray-200 bg-slate-600 flex w-1/3 m-auto justify-center py-1 px-2 rounded-lg border-2 active:bg-opacity-0 transition"
+        >
           Login
         </button>
 

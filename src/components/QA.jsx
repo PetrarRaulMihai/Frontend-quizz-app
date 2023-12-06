@@ -22,7 +22,7 @@ function QA() {
   const handleSubmitAnswer = () => {
     if (usersChoices.length === numberOfQuestions - 1) {
       console.log("you reached");
-      navigate("/register");
+      navigate("/endpage");
     }
 
     if (userAnswer) {
@@ -82,7 +82,9 @@ function QA() {
         {subjectObject.questions[questionIndex].options.map((option, index) => {
           return (
             <div
-              className="flex gap-4 px-3 bg-[#485972] py-2 items-center rounded-xl w-full"
+              className={`${
+                userAnswer === option ? "bg-[#a629f5]" : "bg-[#485972]"
+              } flex gap-4 px-3  py-2 items-center rounded-xl w-full`}
               onClick={() => usersAnswer(option)}
             >
               <div className=" bg-[#f3f7fa] rounded-md">

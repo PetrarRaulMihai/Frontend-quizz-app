@@ -7,6 +7,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Head from "./components/Head";
 import QA from "./components/QA";
+import EndPage from "./components/EndPage";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             </>
           }
         />
+        <Route path="/endpage" element={<EndPage />} />
       </Routes>
     </div>
   );
