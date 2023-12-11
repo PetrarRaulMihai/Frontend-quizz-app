@@ -10,7 +10,7 @@ function Subjects() {
   useEffect(() => {
     const fetchSupa = async () => {
       try {
-        const { data, error } = await supabase.from("quizz").select();
+        const { data, error } = await supabase.from("QuizzApp-Quizz").select();
         setQuizArray(data);
       } catch (error) {
         console.error("Error fetching data:", error);

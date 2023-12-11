@@ -37,7 +37,6 @@ function App() {
             </>
           }
         />
-        <Route path="/endpage" element={<EndPage />} />
       </Routes>
     </div>
   );

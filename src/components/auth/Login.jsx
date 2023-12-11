@@ -13,7 +13,7 @@ function Login() {
 
   const onSubmit = async (values) => {
     // Fetch users from supabase
-    const { data, error } = await supabase.from("quizzAppUsers").select();
+    const { data, error } = await supabase.from("QuizzApp-Users").select();
 
     // check in database for a object which has email matching with user typed email
     // if yes return entire object if not returns undefined

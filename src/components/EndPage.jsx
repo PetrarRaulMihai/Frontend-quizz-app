@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 
-function EndPage() {
+function EndPage({ title, correctAnswers, wrongAnswers }) {
+  //Here we must continue to display the correct and wrong answers
+
   return (
     <div className="flex flex-col items-center">
       <p className="text-slate-200 font-semibold text-2xl">
-        You reached all questions
+        You reached all {title} questions
       </p>
       <p className="text-slate-200 font-semibold text-xl">This is you score</p>
       <Link to="/home">

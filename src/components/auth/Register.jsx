@@ -31,7 +31,7 @@ function Register() {
     if (matchHashedPassword && matchHashedCoPassword) {
       //Insert user in supabse
       try {
-        const { error } = await supabase.from("quizzAppUsers").insert({
+        const { error } = await supabase.from("QuizzApp-Users").insert({
           id: uuidv4().slice(0, 4).toUpperCase(),
           firstName: values.firstName,
           secondName: values.secondName,
