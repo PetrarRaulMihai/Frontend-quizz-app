@@ -39,7 +39,7 @@ function Register() {
           password: hashedPassword,
           coPassword: hashedCoPassword,
         });
-        navigate("/login");
+        navigate("/");
 
         if (error) {
           // Handle the error, you can log it or throw it if needed
@@ -168,7 +168,7 @@ function Register() {
       <button className="text-lg font-bold text-gray-200 bg-slate-600 flex w-1/3 m-auto justify-center py-1 px-2 rounded-lg border-2 active:bg-opacity-0 transition">
         Register
       </button>
-      <Link to="/login">
+      <Link to="/">
         <div className="flex w-full justify-center items-center gap-2 mt-6">
           <p className="text-slate-300 text-center text-lg hover:underline">
             Login

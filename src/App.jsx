@@ -7,7 +7,8 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Head from "./components/Head";
 import QA from "./components/QA";
-import EndPage from "./components/EndPage";
+import AdminLogin from "./components/auth/AdminLogin";
+import AdminPage from "./components/AdminPage";
 
 function App() {
   return (
@@ -16,7 +17,6 @@ function App() {
     >
       <Routes>
         <Route path={"/"} element={<Login />} />
-        <Route path={"/login"} element={<Login />} />
         <Route path={"/register"} element={<Register />} />
         <Route
           path={"/home"}
@@ -27,6 +27,7 @@ function App() {
             </>
           }
         />
+        <Route path="/adminPage" element={<AdminPage />}></Route>
         {/* ---------------------------------------- DYNAMIC ROUTING -------------------------------------- */}
         <Route
           path={"/:title"}
@@ -37,6 +38,7 @@ function App() {
             </>
           }
         />
+        <Route path="/admin" element={<AdminLogin />}></Route>
       </Routes>
     </div>
   );

@@ -8,45 +8,30 @@ import { useNavigate } from "react-router-dom";
 import bcrypt, { hash } from "bcryptjs";
 import basicSchemaLogin from "../../schemas/basicSchemaLogin";
 
-function Login() {
+function LoginAdmin() {
   const navigate = useNavigate();
   const [wrongCredentials, setWrongCredentials] = useState(null);
 
   const onSubmit = async (values) => {
     // Fetch users from supabase
-    const { data, error } = await supabase.from("QuizzApp-Users").select();
+    const { data, error } = await supabase.from("QuizzApp-Admin").select();
 
     // check in database for a object which has email matching with user typed email
     // if yes return entire object if not returns undefined
-    const emailMatch = data.find((user) => user.email === values.email);
+    const adminFound = data.find(
+      (user) => user.email === values.email && user.password === values.password
+    );
 
-    if (emailMatch !== undefined) {
-      const nameToLocalStorage =
-        emailMatch.firstName + " " + emailMatch.secondName;
-
-      // check if password for that particular user matches with the user typed one
-      // return boolean
-      const passwordMatch = await bcrypt.compare(
-        values.password,
-        emailMatch.password
-      );
-
-      // further if credentials work
-      if (passwordMatch) {
-        console.log("PASSWORD MATCH !!");
-        setWrongCredentials(false);
-        navigate("/home");
-
-        //set in local storage for user name display in app
-        localStorage.setItem("name", nameToLocalStorage);
-      } else {
-        setWrongCredentials(true);
-        console.error("PASSWORD DOESN'T MATCH !!");
-      }
+    if (adminFound) {
+      console.log("PASSWORD MATCH !!");
+      setWrongCredentials(false);
+      navigate("/adminPage");
     } else {
-      console.error("EMAIL DOESN'T EXISTS");
+      setWrongCredentials(true);
+      console.error("PASSWORD OR EMAIL DOESN'T MATCH !!");
     }
   };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -63,7 +48,7 @@ function Login() {
         className="flex flex-col px-5 gap-4 py-10"
       >
         <h1 className="text-center font-bold text-2xl text-gray-200 mb-6">
-          LOGIN
+          LOGIN AS ADMIN
         </h1>
         {/* ------------------------------------------ EMAIL ------------------------------------------ */}
         <div className="flex flex-col h-20">
@@ -105,22 +90,14 @@ function Login() {
 
         <button
           type="submit"
-          className="text-lg font-bold text-gray-200 bg-slate-600 flex w-1/3 m-auto justify-center py-1 px-2 rounded-lg border-2 active:bg-opacity-0 transition"
+          className="text-md text-gray-200 bg-slate-600 flex w-1/3 m-auto justify-center py-1 px-2 rounded-lg border-2 active:bg-opacity-0 transition"
         >
           Login
         </button>
-
-        <Link
-          className="text-center hover:underline text-slate-300 text-sm mt-4 opacity-60"
-          to="/admin"
-        >
-          Login as admin
-        </Link>
-
-        <Link to="/register">
+        <Link to="/">
           <div className="flex w-full justify-center items-center gap-2 mt-4">
             <p className="text-slate-300 text-center text-lg hover:underline">
-              Register
+              Back
             </p>
             <IoIosArrowForward color="rgb(203 213 225)" size={"17px"} />
           </div>
@@ -130,4 +107,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginAdmin;

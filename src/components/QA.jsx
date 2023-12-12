@@ -7,35 +7,41 @@ function QA() {
   const navigate = useNavigate();
   const { subjectObject } = useStore();
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [noAnswer, setNoAnswer] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
-  const [correctAnswers, setCorrectAnswers] = useState([]);
-  const [wrongAnswers, setWrongAnswers] = useState([]);
+  //build user's answer array of all answers
+  const [userAnswers, setUserAnswers] = useState([]);
 
   //this state is storing users choice temporary
-  const [userAnswer, setUserAnswer] = useState();
+  const [userAnswer, setUserAnswer] = useState("");
 
   const numberOfQuestions = subjectObject.questions.length;
 
-  useEffect(() => {
-    console.log(correctAnswers);
-    console.log(wrongAnswers);
-  }, [questionIndex]);
+  useEffect(() => {}, [questionIndex]);
 
   const handleSubmitAnswer = () => {
-    setQuestionIndex((prev) => prev + 1);
-
     if (userAnswer) {
       if (userAnswer === subjectObject?.questions[questionIndex]?.answer) {
-        setCorrectAnswers([...correctAnswers, userAnswer]);
-      } else {
-        setWrongAnswers([...wrongAnswers, userAnswer]);
+        setCorrectAnswers((prev) => prev + 1);
       }
+
+      // brings next question
+      setQuestionIndex((prev) => prev + 1);
+
+      // set answer in array
+      setUserAnswers([...userAnswers, userAnswer]);
     } else {
+      setNoAnswer(true);
+
+      setTimeout(() => {
+        setNoAnswer(false);
+      }, 400);
     }
 
     setUserAnswer("");
 
-    if (questionIndex === 9) {
+    if (questionIndex === subjectObject.questions.length - 1) {
       return;
     }
   };
@@ -53,21 +59,21 @@ function QA() {
 
   return (
     <>
-      {questionIndex > 9 && (
+      {questionIndex > subjectObject.questions.length - 1 && (
         <EndPage
           title={subjectObject.title}
+          userAnswers={userAnswers}
           correctAnswers={correctAnswers}
-          wrongAnswers={wrongAnswers}
         ></EndPage>
       )}
 
-      {questionIndex < 10 && (
+      {questionIndex < subjectObject.questions.length && (
         <article className="px-5 flex flex-col gap-10">
           {/* Questions section */}
           <section className="flex flex-col gap-10">
             <div className="flex flex-col gap-5">
               <p className="italic text-[#91a2b7]">
-                Question {questionIndex + 1} of 10
+                Question {questionIndex + 1} of {subjectObject.questions.length}
               </p>
               <p className="break-words text-white ">
                 {subjectObject.questions[questionIndex].question}
@@ -77,7 +83,7 @@ function QA() {
               className="flex w-full"
               type="range"
               min="0"
-              max="9"
+              max={subjectObject.questions.length}
               value={questionIndex}
             ></input>
             {/* OTHER VERSION OF RANGE SLIDER */}
@@ -95,10 +101,14 @@ function QA() {
                   <div
                     className={`${
                       userAnswer === option ? "bg-[#a629f5]" : "bg-[#485972]"
-                    } flex gap-4 px-3  py-2 items-center rounded-xl w-full`}
+                    }  flex gap-4 px-3  py-2 items-center rounded-xl w-full`}
                     onClick={() => usersAnswer(option)}
                   >
-                    <div className=" bg-[#f3f7fa] rounded-md">
+                    <div
+                      className={`${
+                        noAnswer ? "rotate-12 bg-red-400" : ""
+                      } bg-[#f3f7fa] rounded-md`}
+                    >
                       <p className="text-[#6f7784] font-bold text-lg px-3 py-1">{`${
                         index === 0
                           ? "A"
