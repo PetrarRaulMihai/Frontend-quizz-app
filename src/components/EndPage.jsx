@@ -46,6 +46,7 @@ function EndPage({ title, userAnswers, correctAnswers }) {
           </li>
         ))}
       </ol>
+      <button>Ceva</button>
 
       {/* <Link to="/home">
         <div className="flex w-full justify-center items-center gap-2 mt-6">
