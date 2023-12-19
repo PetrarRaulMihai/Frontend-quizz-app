@@ -4,6 +4,7 @@ import supabase from "../config/supabaseConfig";
 import { FaCirclePlus } from "react-icons/fa6";
 import { FaSpinner } from "react-icons/fa";
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 
 function Subjects() {
   const [quizArray, setQuizArray] = useState([]);
@@ -210,9 +211,11 @@ function Subjects() {
         {quizArray.map((quizz) => {
           return (
             <div className="flex justify-between">
-              <p className="border-2 text-white w-36 rounded-xl text-center">
-                {quizz.title}
-              </p>
+              <Link to={`/edit/${quizz.id}`}>
+                <p className="border-2 text-white w-36 rounded-xl text-center">
+                  {quizz.title}
+                </p>
+              </Link>
               <button
                 onClick={() => deleteSubject(quizz.id)}
                 className="bg-rose-600 rounded-xl text-white px-3"
@@ -229,9 +232,6 @@ function Subjects() {
 
 export default Subjects;
 
-// FURTHER TO CONTINU THIS SUBJECT SELECTED EDITING
-// title input
-// questions input
-// input ect....
-
-// mai departe luat valori de pe inpututir si pus in supabase
+// NEXT : edit page with input question number insert , then fetch supabase bring question no 20 ......
+// DARK MODE
+// RESPONSIVE

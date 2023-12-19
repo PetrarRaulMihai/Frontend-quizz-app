@@ -46,16 +46,15 @@ function EndPage({ title, userAnswers, correctAnswers }) {
           </li>
         ))}
       </ol>
-      <button>Ceva</button>
 
-      {/* <Link to="/home">
+      <Link to="/home">
         <div className="flex w-full justify-center items-center gap-2 mt-6">
           <p className="text-slate-300 text-center text-lg hover:underline">
             Home
           </p>
           <IoIosArrowForward color="rgb(203 213 225)" size={"17px"} />
         </div>
-      </Link> */}
+      </Link>
     </div>
   );
 }

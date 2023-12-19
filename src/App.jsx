@@ -9,6 +9,7 @@ import Head from "./components/Head";
 import QA from "./components/QA";
 import AdminLogin from "./components/auth/AdminLogin";
 import AdminPage from "./components/AdminPage";
+import EditSubject from "./components/EditSubject";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           }
         />
         <Route path="/admin" element={<AdminLogin />}></Route>
+        <Route path="/edit/:id" element={<EditSubject />}></Route>
       </Routes>
     </div>
   );
