@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 function Subjects() {
   const [quizArray, setQuizArray] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
@@ -77,12 +76,19 @@ function Subjects() {
       questions: formik.values.questions,
     });
 
-    console.log(formik.values.questions);
     formik.resetForm();
   };
 
+  // DELETE SUBJECT FUNCTION
+  const deleteSubject = async (id) => {
+    const { error } = await supabase
+      .from("QuizzApp-Quizz")
+      .delete()
+      .eq("id", id);
+  };
+
   return (
-    <div className="px-5">
+    <div className="px-5 flex flex-col gap-5">
       <div className="flex gap-5 px-3 bg-[#3c4d67] py-2 items-center text-white font-bold rounded-xl">
         <div className=" rounded-lg">
           <FaCirclePlus
@@ -98,6 +104,7 @@ function Subjects() {
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
         {/* Title */}
         <input
+          className="px-4 py-2 rounded-xl focus:outline-none"
           type="text"
           placeholder="Subject title"
           name="title"
@@ -106,6 +113,7 @@ function Subjects() {
         ></input>
         {/* Icon */}
         <input
+          className="px-4 py-2 rounded-xl focus:outline-none"
           type="text"
           placeholder="Icon"
           name="icon"
@@ -115,6 +123,7 @@ function Subjects() {
 
         <div className="flex flex-col gap-5">
           <input
+            className="px-4 py-2 rounded-xl focus:outline-none"
             type="text"
             placeholder="Question"
             name="question"
@@ -122,52 +131,72 @@ function Subjects() {
             value={formik.values.question}
           ></input>
           <input
+            className="px-4 py-2 rounded-xl focus:outline-none"
             type="text"
             placeholder="Answer"
             name="answer"
             onChange={formik.handleChange}
             value={formik.values.answer}
           ></input>
-          {/* option inputs */}
-          <div>
+
+          {/* options inputs */}
+          <div className="w-full flex flex-col gap-5">
             <input
+              className="px-4 py-2 rounded-xl focus:outline-none"
               name="option1"
               type="text"
-              placeholder="Option1"
+              placeholder="Option 1"
               onChange={formik.handleChange}
               value={formik.values.option1}
-            ></input>{" "}
+            ></input>
+
             <input
+              className="px-4 py-2 rounded-xl focus:outline-none"
               name="option2"
               type="text"
-              placeholder="Option2"
+              placeholder="Option 2"
               onChange={formik.handleChange}
               value={formik.values.option2}
-            ></input>{" "}
+            ></input>
+
             <input
+              className="px-4 py-2 rounded-xl focus:outline-none"
               name="option3"
               type="text"
-              placeholder="Option3"
+              placeholder="Option 3"
               onChange={formik.handleChange}
               value={formik.values.option3}
-            ></input>{" "}
+            ></input>
+
             <input
+              className="px-4 py-2 rounded-xl focus:outline-none"
               name="option4"
               type="text"
-              placeholder="Option4"
+              placeholder="Option 4"
               onChange={formik.handleChange}
               value={formik.values.option4}
-            ></input>{" "}
+            ></input>
           </div>
         </div>
 
-        <button type="button" onClick={addQuestion}>
-          Add question
-        </button>
+        {/* add questions and submit buttons div */}
+        <p className="text-center text-lg font-bold text-white">
+          Questions : {questions.length}
+        </p>
 
-        <div>
+        <div className="flex justify-between mt-5">
+          {/* ADD QUESTION */}
           <button
-            className="bg-green-500 p-4"
+            className="bg-green-500 rounded-xl font-bold text-[#313e51] w-36 py-2"
+            type="button"
+            onClick={addQuestion}
+          >
+            Add question
+          </button>
+
+          {/* SUBMIT */}
+          <button
+            className="rounded-xl font-bold text-green-500 w-36 py-2 border-2 border-green-500"
             type="button"
             onClick={submitAllData}
           >
@@ -177,10 +206,21 @@ function Subjects() {
       </form>
 
       {/* end of form. building the delete function */}
-
-      <div>
+      <div className="flex flex-col gap-2">
         {quizArray.map((quizz) => {
-          return <p>{quizz.title}</p>;
+          return (
+            <div className="flex justify-between">
+              <p className="border-2 text-white w-36 rounded-xl text-center">
+                {quizz.title}
+              </p>
+              <button
+                onClick={() => deleteSubject(quizz.id)}
+                className="bg-rose-600 rounded-xl text-white px-3"
+              >
+                Delete
+              </button>
+            </div>
+          );
         })}
       </div>
     </div>
