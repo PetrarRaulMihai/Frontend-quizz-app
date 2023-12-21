@@ -25,6 +25,7 @@ function EditSubject() {
     },
   });
 
+  // FETCH FROM DATABASE
   const getQuestion = async () => {
     const { data, error } = await supabase
       .from("QuizzApp-Quizz")
@@ -44,25 +45,45 @@ function EditSubject() {
     });
   };
 
-  // DATABASE UPDATE AT SUBMIT
-  const updateDB = async () => {
-    // setOptions(dataRowById?.questions?.[questionNumber - 1]?.options);
-    console.log("formik.values.options:", formik.values);
-    console.log(formik.values);
-    dataRowById.questions[0].options.map((e, index) => {
-      console.log(e);
-    });
-
-    // BELOW DATABASE UPDATE
-  };
-
   // The ANSWER which SAVED us ALWAYS
   useEffect(() => {
     formik.setFieldValue("options", options);
   }, [options]);
 
-  const test = (e) => {
-    setOptions([]);
+  // HANDLE CHANGE INPUT FUNCTION CALL
+  const handleChangeRealTime = (e) => {
+    updateArray(parseInt(e.target.id), e.target.value);
+  };
+
+  // OPTIONS ARRAY UPDATE
+  const updateArray = (id, value) => {
+    const newArr = dataRowById.questions[0].options.map((option, index) => {
+      if (index === id) {
+        option = value;
+      }
+      return option;
+    });
+    setOptions(newArr);
+  };
+
+  // DATABASE UPDATE AT SUBMIT
+  const updateDB = async () => {
+    console.log("Inserted in supabase", options);
+    console.log("INSERTED IN SUPABASE ALL : ", dataRowById.questions);
+
+    // HERE UPDATE SUPABSE IN OPTIONS ARRAY
+    const { error } = await supabase
+      .from("QuizzApp-Quizz")
+      .update({
+        questions: [
+          {
+            answer: formik.values.answer,
+            options: formik.values.options,
+            question: formik.values.question,
+          },
+        ],
+      })
+      .eq("id", id);
   };
 
   return (
@@ -120,13 +141,14 @@ function EditSubject() {
           {/* OPTIONS */}
           <div className="flex flex-col gap-2">
             {" "}
-            {dataRowById.questions[questionNumber - 1].options.map(
+            {dataRowById?.questions?.[questionNumber - 1]?.options.map(
               (option, index) => {
                 return (
                   <div className="flex flex-col">
                     <label htmlFor="option">Option {index + 1}</label>
                     <textarea
-                      onChange={test}
+                      id={index}
+                      onChange={handleChangeRealTime}
                       className=" w-full resize-none bg-slate-500 rounded-xl px-4 py-1"
                     >
                       {option}
