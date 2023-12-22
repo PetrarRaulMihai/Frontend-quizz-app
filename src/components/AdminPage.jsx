@@ -89,7 +89,7 @@ function Subjects() {
   };
 
   return (
-    <div className="px-5 flex flex-col gap-5">
+    <div className="px-5 flex flex-col gap-5 sm:px-10 md:px-20 lg:px-[200px] xl:px-[300px] 2xl:px-[500px]">
       <div className="flex gap-5 px-3 bg-[#3c4d67] py-2 items-center text-white font-bold rounded-xl">
         <div className=" rounded-lg">
           <FaCirclePlus
@@ -185,7 +185,7 @@ function Subjects() {
           Questions : {questions.length}
         </p>
 
-        <div className="flex justify-between mt-5">
+        <div className="flex justify-between mt-5 md:px-[25%]">
           {/* ADD QUESTION */}
           <button
             className="bg-green-500 rounded-xl font-bold text-[#313e51] w-36 py-2"
@@ -210,7 +210,7 @@ function Subjects() {
       <div className="flex flex-col gap-2">
         {quizArray.map((quizz) => {
           return (
-            <div className="flex justify-between">
+            <div className="flex justify-between md:px-[25%]">
               <Link to={`/edit/${quizz.id}`}>
                 <p className="border-2 text-white w-36 rounded-xl text-center">
                   {quizz.title}

@@ -80,7 +80,7 @@ function EditSubject() {
   };
 
   return (
-    <div className="px-5">
+    <div className="px-5 sm:px-10 md:px-20 lg:px-32 xl:px-56 2xl:px-96">
       <div className="flex items-center mb-5 gap-3">
         <label className="text-white" htmlFor="questionNumber">
           Question number
