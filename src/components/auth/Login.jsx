@@ -74,7 +74,7 @@ function Login() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             values={formik.values.email}
-            className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
+            className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-black dark:text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
             type="email"
             name="email"
             placeholder="Type your email"
@@ -91,7 +91,7 @@ function Login() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
-            className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
+            className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-black dark:text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
             type="password"
             name="password"
             placeholder="Choose a password"
@@ -120,7 +120,10 @@ function Login() {
         <div className="flex w-full justify-center items-center gap-2 mt-4">
           <div className="text-black dark:text-gray-300 text-center text-lg hover:underline flex justify-center items-center">
             <Link to="/register">Register</Link>
-            <IoIosArrowForward color="rgb(203 213 225)" size={"17px"} />
+            <IoIosArrowForward
+              color="rgb(0 0 0) dark:rgb(203 213 225)"
+              size={"17px"}
+            />
           </div>
         </div>
       </form>

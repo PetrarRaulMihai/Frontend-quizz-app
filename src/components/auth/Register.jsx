@@ -83,7 +83,7 @@ function Register() {
           First name
         </label> */}
         <input
-          className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
+          className="border-2 text-black border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg dark:text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.firstName}
@@ -101,7 +101,7 @@ function Register() {
           Second name
         </label> */}
         <input
-          className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
+          className="border-2 text-black border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg dark:text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.secondName}
@@ -119,7 +119,7 @@ function Register() {
           Email
         </label> */}
         <input
-          className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
+          className="border-2 text-black border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg dark:text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
@@ -137,7 +137,7 @@ function Register() {
           Password
         </label> */}
         <input
-          className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
+          className="border-2 text-black border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg dark:text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
@@ -155,7 +155,7 @@ function Register() {
           Confirm password
         </label> */}
         <input
-          className="border-2 border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
+          className="border-2 text-black border-black dark:border-0 dark:bg-slate-500 px-4 py-2 text-lg dark:text-gray-200 placeholder:gray dark:placeholder:text-gray-200 rounded-lg focus:outline-none"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.coPassword}
@@ -173,10 +173,13 @@ function Register() {
       </button>
       <Link to="/">
         <div className="flex w-full justify-center items-center gap-2 mt-6">
-          <p className="text-slate-300 text-center text-lg hover:underline">
+          <p className="text-black dark:text-slate-300 text-center text-lg hover:underline">
             Login
           </p>
-          <IoIosArrowForward color="rgb(203 213 225)" size={"17px"} />
+          <IoIosArrowForward
+            color="rgb(0 0 0) dark:rgb(203 213 225)"
+            size={"17px"}
+          />
         </div>
       </Link>
     </form>
