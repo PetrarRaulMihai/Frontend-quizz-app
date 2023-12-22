@@ -10,8 +10,8 @@ function EndPage({ title, userAnswers, correctAnswers }) {
   const { subjectObject } = useStore();
 
   return (
-    <div className="flex flex-col text-white px-8">
-      <p className="text-slate-200 font-semibold text-2xl my-5">
+    <div className="flex flex-col text=black dark:text-white px-8">
+      <p className="text-black dark:text-slate-200 font-semibold text-2xl my-5">
         You reached all {title} questions
       </p>
       <p className="text-xl font-semibold italic mt-5 text-left">

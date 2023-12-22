@@ -66,16 +66,15 @@ function QA() {
           correctAnswers={correctAnswers}
         ></EndPage>
       )}
-
       {questionIndex < subjectObject.questions.length && (
         <article className="px-5 flex flex-col gap-10">
           {/* Questions section */}
           <section className="flex flex-col gap-10">
             <div className="flex flex-col gap-5">
-              <p className="italic text-[#91a2b7]">
+              <p className="italic text-gray-500 dark:text-[#91a2b7]">
                 Question {questionIndex + 1} of {subjectObject.questions.length}
               </p>
-              <p className="break-words text-white ">
+              <p className="break-words text-black dark:text-white ">
                 {subjectObject.questions[questionIndex].question}
               </p>
             </div>
@@ -100,7 +99,9 @@ function QA() {
                 return (
                   <div
                     className={`${
-                      userAnswer === option ? "bg-[#a629f5]" : "bg-[#485972]"
+                      userAnswer === option
+                        ? "bg-blue-500 dark:bg-[#a629f5]"
+                        : "bg-white border-2 border-black dark:border-0 dark:bg-[#485972]"
                     }  flex gap-4 px-3  py-2 items-center rounded-xl w-full`}
                     onClick={() => usersAnswer(option)}
                   >
@@ -109,7 +110,7 @@ function QA() {
                         noAnswer ? "rotate-12 bg-red-400" : ""
                       } bg-[#f3f7fa] rounded-md`}
                     >
-                      <p className="text-[#6f7784] font-bold text-lg px-3 py-1">{`${
+                      <p className="dark:bg-white text-[#6f7784] rounded-lg font-bold text-lg px-3 py-1">{`${
                         index === 0
                           ? "A"
                           : index === 1
@@ -121,7 +122,9 @@ function QA() {
                           : ""
                       }`}</p>
                     </div>
-                    <p className="text-white font-semibold text-md">{option}</p>
+                    <p className="text-black dark:text-white font-semibold text-md">
+                      {option}
+                    </p>
                   </div>
                 );
               }
@@ -129,7 +132,7 @@ function QA() {
           </section>
           {/* Submit button */}
           <button
-            className="bg-[#a629f5] text-white font-semibold py-3 rounded-xl shadow-[0_0_1px_#fff,inset_0_0_3px_#fff,0_0_1px_#a629f5,0_0_1px_#a629f5,0_0_5px_#a629f5] sm:mx-36 md:mx-56 lg:mx-64 xl:mx-80 2xl:mx-96"
+            className="bg-white text-black dark:bg-[#a629f5] dark:text-white font-semibold py-3 rounded-xl dark:shadow-[0_0_1px_#fff,inset_0_0_3px_#fff,0_0_1px_#a629f5,0_0_1px_#a629f5,0_0_5px_#a629f5] sm:mx-36 md:mx-56 lg:mx-64 xl:mx-80 2xl:mx-96"
             onClick={handleSubmitAnswer}
           >
             Submit answer

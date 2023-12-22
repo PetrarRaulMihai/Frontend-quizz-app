@@ -90,7 +90,7 @@ function Subjects() {
 
   return (
     <div className="px-5 flex flex-col gap-5 sm:px-10 md:px-20 lg:px-[200px] xl:px-[300px] 2xl:px-[500px]">
-      <div className="flex gap-5 px-3 bg-[#3c4d67] py-2 items-center text-white font-bold rounded-xl">
+      <div className="flex gap-5 px-3 bg-white text-black dark:bg-[#3c4d67] py-2 items-center dark:text-white font-bold rounded-xl">
         <div className=" rounded-lg">
           <FaCirclePlus
             color=" rgb(34 197 94 / var(--tw-bg-opacity)"
@@ -197,7 +197,7 @@ function Subjects() {
 
           {/* SUBMIT */}
           <button
-            className="rounded-xl font-bold text-green-500 w-36 py-2 border-2 border-green-500"
+            className="rounded-xl font-bold text-green-700 border-green-700 dark:text-green-500 w-36 py-2 border-2 dark:border-green-500"
             type="button"
             onClick={submitAllData}
           >
@@ -212,7 +212,7 @@ function Subjects() {
           return (
             <div className="flex justify-between md:px-[25%]">
               <Link to={`/edit/${quizz.id}`}>
-                <p className="border-2 text-white w-36 rounded-xl text-center">
+                <p className="border-2 border-black dark:border-white text-black dark:text-white w-36 rounded-xl text-center">
                   {quizz.title}
                 </p>
               </Link>

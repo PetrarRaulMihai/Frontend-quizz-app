@@ -82,11 +82,11 @@ function EditSubject() {
   return (
     <div className="px-5 sm:px-10 md:px-20 lg:px-32 xl:px-56 2xl:px-96">
       <div className="flex items-center mb-5 gap-3">
-        <label className="text-white" htmlFor="questionNumber">
+        <label className="text-black dark:text-white" htmlFor="questionNumber">
           Question number
         </label>
         <input
-          className="focus:outline-none bg-slate-500 rounded-xl py-1 text-center w-16"
+          className="focus:outline-none text-black dark:text-white dark:bg-slate-500 rounded-xl py-1 text-center w-16"
           onChange={handleChange}
           type="number"
           name="questionNumber"
@@ -99,75 +99,79 @@ function EditSubject() {
           Display
         </button>
       </div>
-      {true && (
+      {!(
+        questionNumber >= 1 && questionNumber <= dataRowById?.questions?.length
+      ) && (
         <p className="text-red-500 mt-10 text-lg font-semibold">
           No question found at this number !
         </p>
       )}
-      {flag && (
-        //this is dynamic
-        <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
-          {/* QUESTION */}
-          <div className="flex flex-col">
-            <label htmlFor="question">Question</label>
-            <textarea
-              id="question"
-              className=" w-full resize-none bg-slate-500 rounded-xl px-4 py-1"
-              type="text"
-              placeholder="Question"
-              name="question"
-              value={formik.values.question}
-              onChange={formik.handleChange}
-            >
-              {dataRowById.questions[questionNumber - 1]?.question}
-            </textarea>
-          </div>
-          {/* ANSWER */}
-          <div className="flex flex-col">
-            <label htmlFor="answer">Answer</label>
-            <textarea
-              onChange={formik.handleChange}
-              value={formik.values.answer}
-              id="answer"
-              className=" w-full resize-none bg-slate-500 rounded-xl px-4 py-1"
-              type="text"
-              placeholder="Answer"
-            >
-              {dataRowById.questions[questionNumber - 1]?.answer}
-            </textarea>
-          </div>
-          {/* OPTIONS */}
-          <div className="flex flex-col gap-2">
-            {" "}
-            {dataRowById?.questions?.[questionNumber - 1]?.options.map(
-              (option, index) => {
-                return (
-                  <div className="flex flex-col">
-                    <label htmlFor="option">Option {index + 1}</label>
-                    <textarea
-                      id={index}
-                      onChange={handleChangeRealTime}
-                      className=" w-full resize-none bg-slate-500 rounded-xl px-4 py-1"
-                    >
-                      {option}
-                    </textarea>
-                  </div>
-                );
-              }
-            )}
-          </div>
-          {/* SUBMIT ON FORMIK */}
-          <div className="flex justify-center">
-            <button
-              onClick={updateDB}
-              type="button"
-              className="bg-green-600 rounded-xl px-3 py-1 text-white mt-5"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      )}
+      {flag &&
+        questionNumber >= 1 &&
+        questionNumber <= dataRowById?.questions?.length && (
+          //this is dynamic
+          <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+            {/* QUESTION */}
+            <div className="flex flex-col">
+              <label htmlFor="question">Question</label>
+              <textarea
+                id="question"
+                className=" w-full resize-none bg-white dark:bg-slate-500 rounded-xl px-4 py-1"
+                type="text"
+                placeholder="Question"
+                name="question"
+                value={formik.values.question}
+                onChange={formik.handleChange}
+              >
+                {dataRowById.questions[questionNumber - 1]?.question}
+              </textarea>
+            </div>
+            {/* ANSWER */}
+            <div className="flex flex-col">
+              <label htmlFor="answer">Answer</label>
+              <textarea
+                onChange={formik.handleChange}
+                value={formik.values.answer}
+                id="answer"
+                className=" w-full resize-none bg-white dark:bg-slate-500 rounded-xl px-4 py-1"
+                type="text"
+                placeholder="Answer"
+              >
+                {dataRowById.questions[questionNumber - 1]?.answer}
+              </textarea>
+            </div>
+            {/* OPTIONS */}
+            <div className="flex flex-col gap-2">
+              {" "}
+              {dataRowById?.questions?.[questionNumber - 1]?.options.map(
+                (option, index) => {
+                  return (
+                    <div className="flex flex-col">
+                      <label htmlFor="option">Option {index + 1}</label>
+                      <textarea
+                        id={index}
+                        onChange={handleChangeRealTime}
+                        className=" w-full resize-none bg-white dark:bg-slate-500 rounded-xl px-4 py-1"
+                      >
+                        {option}
+                      </textarea>
+                    </div>
+                  );
+                }
+              )}
+            </div>
+            {/* SUBMIT ON FORMIK */}
+            <div className="flex justify-center">
+              <button
+                onClick={updateDB}
+                type="button"
+                className="bg-green-600 rounded-xl px-3 py-1 text-white mt-5"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        )}
     </div>
   );
 }

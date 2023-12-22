@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import darkMobile from "../public/assets/images/pattern-background-mobile-dark.svg";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
-import Head from "./components/Head";
 import QA from "./components/QA";
 import AdminLogin from "./components/auth/AdminLogin";
 import AdminPage from "./components/AdminPage";
@@ -14,7 +13,7 @@ import EditSubject from "./components/EditSubject";
 function App() {
   return (
     <div
-      className={`bg-[#313e51] w-screen h-screen bg-[url('..${darkMobile}')] py-12 overflow-auto`}
+      className={`bg-slate-300 dark:bg-[#313e51] w-screen h-screen bg-[url('..${darkMobile}')] py-12 overflow-auto`}
     >
       <Routes>
         <Route path={"/"} element={<Login />} />
@@ -34,7 +33,7 @@ function App() {
           path={"/:title"}
           element={
             <>
-              <Head />
+              <Header />
               <QA />
             </>
           }

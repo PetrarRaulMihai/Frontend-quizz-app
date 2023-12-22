@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Subject from "./Subject";
 import supabase from "../config/supabaseConfig";
 import { FaSpinner } from "react-icons/fa";
+import Welcome from "./Welcome";
 
 function Subjects() {
   const [quizArray, setQuizArray] = useState([]);
@@ -24,6 +25,7 @@ function Subjects() {
 
   return (
     <div className="flex flex-col gap-6 px-5 sm:px-10 md:px-20 lg:px-32 xl:px-56 2xl:px-96">
+      <Welcome />
       {loading ? (
         <div className="loading-spinner flex justify-center">
           <FaSpinner size={"70px"} />
