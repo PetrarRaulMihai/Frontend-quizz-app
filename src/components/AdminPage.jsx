@@ -231,7 +231,3 @@ function Subjects() {
 }
 
 export default Subjects;
-
-// NEXT : edit page with input question number insert , then fetch supabase bring question no 20 ......
-// DARK MODE
-// RESPONSIVE

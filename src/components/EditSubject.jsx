@@ -9,7 +9,6 @@ function EditSubject() {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [dataRowById, setDataRowById] = useState([]);
   const [flag, setFlag] = useState(false);
-  const [options, setOptions] = useState([]);
 
   // Question number input handler
   const handleChange = (event) => {
@@ -21,7 +20,7 @@ function EditSubject() {
     initialValues: {
       question: "",
       answer: "",
-      options: "",
+      options: [],
     },
   });
 
@@ -35,53 +34,47 @@ function EditSubject() {
     setDataRowById(data[0]);
     setFlag(true);
 
-    // dataRowById is async set so below is still in event loop queue, that's why we used data[0]
-    console.log(data[0]?.questions?.[questionNumber - 1]?.options);
-
-    // update
+    // update formik
     formik.setValues({
       question: data[0]?.questions?.[questionNumber - 1]?.question || "",
       answer: data[0]?.questions?.[questionNumber - 1]?.answer || "",
+      options: data[0]?.questions?.[questionNumber - 1]?.options || [],
     });
   };
 
-  // The ANSWER which SAVED us ALWAYS
-  useEffect(() => {
-    formik.setFieldValue("options", options);
-  }, [options]);
-
   // HANDLE CHANGE INPUT FUNCTION CALL
-  const handleChangeRealTime = (e) => {
-    updateArray(parseInt(e.target.id), e.target.value);
-  };
+  const handleChangeRealTime = (event) => {
+    const id = parseInt(event.target.id);
+    const value = event.target.value;
 
-  // OPTIONS ARRAY UPDATE
-  const updateArray = (id, value) => {
-    const newArr = dataRowById.questions[0].options.map((option, index) => {
+    const newArr = formik.values.options.map((option, index) => {
       if (index === id) {
         option = value;
       }
       return option;
     });
-    setOptions(newArr);
+
+    formik.setFieldValue("options", newArr);
   };
 
   // DATABASE UPDATE AT SUBMIT
   const updateDB = async () => {
-    console.log("Inserted in supabase", options);
-    console.log("INSERTED IN SUPABASE ALL : ", dataRowById.questions);
+    const newQuestionsArray = [...dataRowById.questions];
+
+    const newQuestionObject = {
+      answer: formik.values.answer,
+      options: formik.values.options,
+      question: formik.values.question,
+    };
+
+    //insert the modified object from questions array on the related index position
+    newQuestionsArray[questionNumber - 1] = newQuestionObject;
 
     // HERE UPDATE SUPABSE IN OPTIONS ARRAY
     const { error } = await supabase
       .from("QuizzApp-Quizz")
       .update({
-        questions: [
-          {
-            answer: formik.values.answer,
-            options: formik.values.options,
-            question: formik.values.question,
-          },
-        ],
+        questions: newQuestionsArray,
       })
       .eq("id", id);
   };
@@ -106,6 +99,11 @@ function EditSubject() {
           Display
         </button>
       </div>
+      {true && (
+        <p className="text-red-500 mt-10 text-lg font-semibold">
+          No question found at this number !
+        </p>
+      )}
       {flag && (
         //this is dynamic
         <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
