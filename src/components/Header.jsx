@@ -1,10 +1,10 @@
 import React from "react";
 import sunDark from "../../public/assets/images/icon-sun-dark.svg";
 import moonDark from "../../public/assets/images/icon-moon-dark.svg";
-
+import { Link } from "react-router-dom";
 function Header() {
   return (
-    <header className="flex flex-col gap-6 pt-2 px-5 mb-12">
+    <header className="flex flex-col gap-6 pt-2 px-5 mb-12 sm:px-10 md:px-20 lg:px-32 xl:px-56 2xl:px-96">
       {/* User profile name firts level*/}
       <div className="flex justify-end">
         <p className="italic text-[#91a2b7]">
@@ -12,7 +12,14 @@ function Header() {
         </p>
       </div>
       {/* Header second level */}
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        {/* LOGOUT BUTTON EXIT */}
+        <Link
+          className="text-white font-bold bg-slate-600 px-4 rounded-full"
+          to="/"
+        >
+          Log out
+        </Link>
         {/* Light/dark mode */}
         <div className="flex gap-3">
           <img src={sunDark}></img>

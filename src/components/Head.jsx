@@ -3,6 +3,7 @@ import sunDark from "../../public/assets/images/icon-sun-dark.svg";
 import moonDark from "../../public/assets/images/icon-moon-dark.svg";
 import useStore from "../stores/myZusand";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Head() {
   const { subjectObject } = useStore();
@@ -10,8 +11,15 @@ function Head() {
     console.log(subjectObject.icon);
   }, [subjectObject]);
   return (
-    <div className="px-5 flex flex-col">
-      <header className="flex justify-end">
+    <div className="px-5 flex flex-col sm:px-10 md:px-20 lg:px-32 xl:px-56 2xl:px-96">
+      <header className="flex justify-between mb-10">
+        {/* LOGOUT BUTTON EXIT */}
+        <Link
+          className="text-white font-bold bg-slate-600 px-4 rounded-full"
+          to="/"
+        >
+          Log out
+        </Link>
         {/* right side */}
         <div className="flex gap-3">
           <img src={sunDark}></img>
@@ -23,7 +31,7 @@ function Head() {
         </div>
       </header>
       {/* Subject type */}
-      <div className="flex items-center">
+      <div className="flex items-center mb-5">
         <img className="h-[60px] mr-3" src={subjectObject.icon}></img>
         <p className="text-[#91a2b7] text-2xl">{subjectObject.title}</p>
       </div>

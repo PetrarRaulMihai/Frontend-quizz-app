@@ -57,7 +57,7 @@ function Login() {
   });
 
   return (
-    <div className="h-full flex flex-col justify-center">
+    <div className="h-full flex flex-col justify-cente sm:px-10 md:px-20 lg:px-32 xl:px-56 2xl:px-96">
       <form
         onSubmit={formik.handleSubmit}
         className="flex flex-col px-5 gap-4 py-10"

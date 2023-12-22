@@ -58,7 +58,7 @@ function QA() {
   }, [userAnswer]);
 
   return (
-    <>
+    <div className="sm:px-10 md:px-20 lg:px-32 xl:px-56 2xl:px-96">
       {questionIndex > subjectObject.questions.length - 1 && (
         <EndPage
           title={subjectObject.title}
@@ -129,14 +129,14 @@ function QA() {
           </section>
           {/* Submit button */}
           <button
-            className="bg-[#a629f5] text-white font-semibold py-3 rounded-xl shadow-[0_0_1px_#fff,inset_0_0_3px_#fff,0_0_1px_#a629f5,0_0_1px_#a629f5,0_0_5px_#a629f5]"
+            className="bg-[#a629f5] text-white font-semibold py-3 rounded-xl shadow-[0_0_1px_#fff,inset_0_0_3px_#fff,0_0_1px_#a629f5,0_0_1px_#a629f5,0_0_5px_#a629f5] sm:mx-36 md:mx-56 lg:mx-64 xl:mx-80 2xl:mx-96"
             onClick={handleSubmitAnswer}
           >
             Submit answer
           </button>
         </article>
       )}
-    </>
+    </div>
   );
 }
 
