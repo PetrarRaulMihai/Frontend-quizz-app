@@ -132,7 +132,7 @@ function QA() {
           </section>
           {/* Submit button */}
           <button
-            className="bg-white text-black dark:bg-[#a629f5] dark:text-white font-semibold py-3 rounded-xl dark:shadow-[0_0_1px_#fff,inset_0_0_3px_#fff,0_0_1px_#a629f5,0_0_1px_#a629f5,0_0_5px_#a629f5] sm:mx-36 md:mx-56 lg:mx-64 xl:mx-80 2xl:mx-96"
+            className="bg-white text-black dark:bg-[#a629f5] dark:text-white font-semibold py-3 rounded-xl dark:shadow-[0_0_1px_#fff,inset_0_0_3px_#fff,0_0_1px_#a629f5,0_0_1px_#a629f5,0_0_5px_#a629f5] sm:mx-36"
             onClick={handleSubmitAnswer}
           >
             Submit answer
